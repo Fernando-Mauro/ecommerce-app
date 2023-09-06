@@ -55,7 +55,7 @@ const secondUl = [
         className: ""
     },
     {
-        to: "/sign-ing",
+        to: "/sign-in",
         text: "Sign In",
         className: ""
     },
@@ -72,14 +72,14 @@ const secondUl = [
 ]
 export const Navbar = () => {
     return (
-        <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 text-base font-light">
+        <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 text-base font-light top-0">
             <ul className="flex items-center gap-3">
                 {
                     firstUl.map((link, index) => (
                         <li key={link.text} >
                             <NavLink to={link.to}
                                 className={({ isActive }) =>
-                                    (isActive  ? `${link.className} underline-offset-4` : `${link.className}`)
+                                    (isActive && index !== 0? `${link.className} underline underline-offset-4` : `${link.className}`)
                                 }>
                                 {link.text}
                             </NavLink>
