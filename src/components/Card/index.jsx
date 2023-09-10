@@ -1,14 +1,20 @@
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { MainContext} from '../../Context/mainContext';
 
 export const Card = ({ price, title, image, category, description }) => {
     
+    const {handlerCartCounter} = useContext(MainContext);
+
     return (
         <div className="bg-white cursor-pointer w-56 h-60">
             <figure className="relative mb-4 w-full h-4/5">
                 <span className="p-1 m-2 absolute text-xs text-black bg-white/60 rounded-lg bottom-0 left-0">
                     {category}
                 </span>
-                <button className="m-2 p-1 absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full">
+                <button className="m-2 p-1 absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full"
+                    onClick={ handlerCartCounter }
+                >
                     +
                 </button>
                 <img className="w-full h-full object-cover rounded-lg" src={image} alt={description} />

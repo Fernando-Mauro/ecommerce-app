@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import { NavLink } from "react-router-dom"
+import { MainContext } from "../../Context/mainContext"
 
 const firstUl = [
     {
@@ -66,11 +68,12 @@ const secondUl = [
     },
     {
         to: "🛒",
-        text: "🛒",
+        text: `🛒`,
         className: ""
     }
 ]
 export const Navbar = () => {
+    const {cartCounter} = useContext(MainContext);
     return (
         <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 text-base font-light top-0">
             <ul className="flex items-center gap-3">
@@ -96,7 +99,7 @@ export const Navbar = () => {
                                     (isActive ? `${link.className} underline underline-offset-4` : `${link.className}`)
                                 }
                             >
-                                {link.text}
+                                {link.text === "🛒" ? `🛒 ${cartCounter}` : link.text}
                             </NavLink>
                         </li>
                     ))

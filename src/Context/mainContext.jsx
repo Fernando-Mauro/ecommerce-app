@@ -1,12 +1,18 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const MainContext = createContext()
+export const MainContext = createContext()
 
 export const MainContextProvider = ({ children }) => {
+    const [cartCounter, setCartCounter] = useState(0);
 
-
+    const handlerCartCounter = () => {
+        setCartCounter(cartCounter + 1);
+    }
     return (
-        <MainContext.Provider>
+        <MainContext.Provider value={{
+            cartCounter,
+            handlerCartCounter
+        }}>
             {
                 children
             }
