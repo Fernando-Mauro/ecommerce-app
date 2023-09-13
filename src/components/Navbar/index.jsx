@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { MainContext } from "../../Context/mainContext"
-
+import { ShoppingCartIcon} from "@heroicons/react/24/outline"
 const firstUl = [
     {
         to: "/",
@@ -40,40 +40,46 @@ const firstUl = [
     },
 ]
 
-const secondUl = [
-    {
-        to: "/account",
-        text: "ferma.dev@gmail.com",
-        className: ""
-    },
-    {
-        to: "/my-orders",
-        text: "My orders",
-        className: ""
-    },
-    {
-        to: "/my-account",
-        text: "My Account",
-        className: ""
-    },
-    {
-        to: "/sign-in",
-        text: "Sign In",
-        className: ""
-    },
-    {
-        to: "/my-order",
-        text: "My order",
-        className: ""
-    },
-    {
-        to: "🛒",
-        text: `🛒`,
-        className: ""
-    }
-]
+
 export const Navbar = () => {
     const {cartCounter} = useContext(MainContext);
+    const secondUl = [
+        {
+            to: "/account",
+            text: "ferma.dev@gmail.com",
+            className: ""
+        },
+        {
+            to: "/my-orders",
+            text: "My orders",
+            className: ""
+        },
+        {
+            to: "/my-account",
+            text: "My Account",
+            className: ""
+        },
+        {
+            to: "/sign-in",
+            text: "Sign In",
+            className: ""
+        },
+        {
+            to: "/my-order",
+            text: "My order",
+            className: ""
+        },
+        {
+            to: "🛒",
+            text: <ShoppingCartIcon className="h-6 w-6"/>,
+            className: ""
+        },
+        {
+            to: "/",
+            text: cartCounter,
+            className: ""
+        }
+    ]
     return (
         <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 text-base font-light top-0">
             <ul className="flex items-center gap-3">
@@ -99,7 +105,7 @@ export const Navbar = () => {
                                     (isActive ? `${link.className} underline underline-offset-4` : `${link.className}`)
                                 }
                             >
-                                {link.text === "🛒" ? `🛒 ${cartCounter}` : link.text}
+                                {link.text === <ShoppingCartIcon/> ? <ShoppingCartIcon/> : link.text}
                             </NavLink>
                         </li>
                     ))
