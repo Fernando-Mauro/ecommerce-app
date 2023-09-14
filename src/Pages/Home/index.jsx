@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import { Card } from "../../components/Card"
 import { Layout } from "../../components/Layout"
 import { ProductDetail } from "../../components/ProductDetail";
 import { useFetch } from "../../hooks/useFetch"
+import { MainContext } from "../../Context/mainContext";
 
 export const Home = () => {
     const products = useFetch({ url: "https://fakestoreapi.com/products?limit=10" });
-
+    const { isOpenDetail } = useContext(MainContext);
     return (
         <Layout>
             <div className="grid gap-3 grid-cols-4 w-full max-w-screen-lg">
@@ -18,7 +20,7 @@ export const Home = () => {
                     ))
                 }
             </div>
-            <ProductDetail/>
+            {isOpenDetail && <ProductDetail/>}
         </Layout>
     )
 }
