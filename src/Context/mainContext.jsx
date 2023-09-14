@@ -5,13 +5,29 @@ export const MainContext = createContext()
 export const MainContextProvider = ({ children }) => {
     const [cartCounter, setCartCounter] = useState(0);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
-    
+
+    const [productDetail, setProductDetail] = useState({});
+
+    const handlerSetProductDetail = ({
+        price,
+        title,
+        image,
+        category,
+        description
+    }) => {
+        setProductDetail({
+            price,
+            title,
+            image, 
+            category,
+            description
+        })
+    };
     const handlerCartCounter = () => {
         setCartCounter(cartCounter + 1);
     }
 
     const handlerIsOpenDetail = () => {
-        console.log("click  ")
         setIsOpenDetail(!isOpenDetail);
     }
 
@@ -20,7 +36,9 @@ export const MainContextProvider = ({ children }) => {
             cartCounter,
             handlerCartCounter,
             handlerIsOpenDetail,
-            isOpenDetail
+            isOpenDetail,
+            handlerSetProductDetail,
+            productDetail
         }}>
             {
                 children

@@ -4,10 +4,20 @@ import { MainContext } from '../../Context/mainContext';
 import { PlusIcon } from "@heroicons/react/24/outline"
 export const Card = ({ price, title, image, category, description }) => {
 
-    const { handlerCartCounter } = useContext(MainContext);
-    const { handlerIsOpenDetail } = useContext(MainContext);
+    const { handlerCartCounter, handlerIsOpenDetail, handlerSetProductDetail } = useContext(MainContext);
+
+    const onClickCard = () => {
+        handlerSetProductDetail({
+            price,
+            title,
+            image,
+            category,
+            description
+        })
+        handlerIsOpenDetail()
+    }
     return (
-        <div className="bg-white cursor-pointer w-56 h-60" onClick={() => handlerIsOpenDetail()}>
+        <div className="bg-white cursor-pointer w-56 h-60" onClick={onClickCard}>
             <figure className="relative mb-4 w-full h-4/5">
                 <span className="p-1 m-2 absolute text-xs text-black bg-white/60 rounded-lg bottom-0 left-0">
                     {category}

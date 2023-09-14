@@ -6,7 +6,7 @@ import { useFetch } from "../../hooks/useFetch"
 import { MainContext } from "../../Context/mainContext";
 
 export const Home = () => {
-    const products = useFetch({ url: "https://fakestoreapi.com/products?limit=10" });
+    const products = useFetch({ url: "https://fakestoreapi.com/products?limit=20" });
     const { isOpenDetail } = useContext(MainContext);
     return (
         <Layout>
