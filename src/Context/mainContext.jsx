@@ -8,6 +8,17 @@ export const MainContextProvider = ({ children }) => {
 
     const [productDetail, setProductDetail] = useState({});
 
+    const [cart, setCart] = useState([]);
+    const [isOpenCheckout, setIsOpenCheckout] = useState(false);
+
+    const handlerAddNewElementCart = (el) => {
+        setCart([...cart, el]);
+    }
+
+    const handlerIsOpenCheckout = () => {
+        setIsOpenCheckout(!isOpenCheckout);
+        if(isOpenDetail) setIsOpenDetail(false);
+    }
     const handlerSetProductDetail = ({
         price,
         title,
@@ -29,6 +40,7 @@ export const MainContextProvider = ({ children }) => {
 
     const handlerIsOpenDetail = () => {
         setIsOpenDetail(!isOpenDetail);
+        if(isOpenCheckout) setIsOpenCheckout(false);
     }
 
     return (
@@ -38,7 +50,10 @@ export const MainContextProvider = ({ children }) => {
             handlerIsOpenDetail,
             isOpenDetail,
             handlerSetProductDetail,
-            productDetail
+            productDetail,
+            handlerAddNewElementCart,
+            handlerIsOpenCheckout,
+            isOpenCheckout
         }}>
             {
                 children

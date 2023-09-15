@@ -24,6 +24,7 @@ const AppRoutes = () => {
 }
 
 export const App = () => {
+
     return (
         <MainContextProvider>
             <BrowserRouter>
