@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { MainContext } from '../../Context/mainContext';
 import { PlusIcon } from "@heroicons/react/24/outline"
-export const Card = ({ price, title, image, category, description }) => {
+export const Card = ({ price, title, image, category, description, id }) => {
 
     const { handlerCartCounter, handlerIsOpenDetail, handlerSetProductDetail, handlerAddNewElementCart , handlerIsOpenCheckout} = useContext(MainContext);
 
@@ -25,7 +25,8 @@ export const Card = ({ price, title, image, category, description }) => {
             title,
             image,
             category,
-            description
+            description,
+            id
         });
         handlerIsOpenCheckout();
     }

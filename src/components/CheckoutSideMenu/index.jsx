@@ -1,6 +1,7 @@
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import { MainContext } from "../../Context/mainContext";
 import { useContext } from "react";
+import { OrderCart } from "../OrderCart";
 
 export const CheckoutSideMenu = () => {
     const { handlerIsOpenCheckout, cart } = useContext(MainContext);
@@ -12,14 +13,17 @@ export const CheckoutSideMenu = () => {
 
                 </XCircleIcon>
             </div>
-            {/* <figure className="flex items-center justify-items-center flex-col">
-                <img className="w-4/5" src={image} alt={description.trim(" ")[0]} />
-            </figure>
-            <p className="flex flex-col p-6 gap-4">
-                <span className="font-medium text-2xl">${price}</span>
-                <span className="font-medium text-md">{title}</span>
-                <span className="font-light text-sm">{description}</span>
-            </p> */}
+            <div className="w-full px-6 flex flex-col gap-4">
+                {
+                    cart.map(element => (
+                        <OrderCart  key={element.id}
+                                    image={element.image}
+                                    title={element.title}
+                                    price={element.price}
+                        />
+                    ))
+                }
+            </div>
         </aside>
     )
 }

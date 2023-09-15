@@ -53,7 +53,8 @@ export const MainContextProvider = ({ children }) => {
             productDetail,
             handlerAddNewElementCart,
             handlerIsOpenCheckout,
-            isOpenCheckout
+            isOpenCheckout,
+            cart
         }}>
             {
                 children

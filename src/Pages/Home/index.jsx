@@ -16,6 +16,7 @@ export const Home = () => {
                         <Card category={product.category}
                             {...product}
                             key={product.id}
+                            id={product.id}
                         />
                     ))
                 }
