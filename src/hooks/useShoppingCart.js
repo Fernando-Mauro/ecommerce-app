@@ -30,12 +30,16 @@ export const useShoppingCart = () => {
         setCart(cart.filter(element => element.id !== id));
     };
 
+    const clearCart = () => {
+        setCart([]);
+    }
     return {
         setCart, 
         cart,
         cartCounter,
         handlerAddNewElementCart,
         deleteProductFromCart,
-        totalCartPrice
+        totalCartPrice,
+        clearCart
     }
 }

@@ -9,8 +9,19 @@ export const MainContextProvider = ({ children }) => {
 
     const [isOpenCheckout, setIsOpenCheckout] = useState(false);
 
-    const {cart, cartCounter, handlerAddNewElementCart, deleteProductFromCart, totalCartPrice} = useShoppingCart()
-    
+    const {cart, cartCounter, handlerAddNewElementCart, deleteProductFromCart, totalCartPrice, clearCart} = useShoppingCart()
+    const [order, setOrder] = useState([]); 
+
+    const handlerCheckOut = () => {
+        const orderToAdd = {
+            date: new Date(),
+            products: cart,
+            totalProducts: cartCounter, 
+            totalPrice: totalCartPrice,
+        };
+        setOrder([...order, orderToAdd]);
+        clearCart();
+    };
 
     const handlerOpenCheckout = () => {
         setIsOpenCheckout(true);
@@ -55,7 +66,8 @@ export const MainContextProvider = ({ children }) => {
             cart,
             handlerCloseCheckout,
             deleteProductFromCart,
-            totalCartPrice
+            totalCartPrice,
+            handlerCheckOut
         }}>
             {
                 children
