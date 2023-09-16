@@ -10,7 +10,7 @@ export const OrderCart = ({
     id
 }) => {
     const trimTitle = title.split(" ")[0];
-    const {deleteProductFromCart , handlerCartCounter} = useContext(MainContext);
+    const {deleteProductFromCart} = useContext(MainContext);
     return (
 
         <div className="flex items-center justify-between">
@@ -22,12 +22,11 @@ export const OrderCart = ({
             </div>
             <div className="flex items-center gap-2">
                 <p className="text-lg font-bold">
-                    {price}
+                    ${price}
                 </p>
                 <button>
                     <XCircleIcon className="h-7 w-7 text-black cursor-pointer" onClick={() => {
                         deleteProductFromCart(id);
-                        handlerCartCounter();
                     }}></XCircleIcon>
                 </button>
 

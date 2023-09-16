@@ -31,7 +31,6 @@ export const Card = ({ price, title, image, category, description, id }) => {
         });
 
         handlerOpenCheckout();
-        handlerCartCounter();
     }
 
     return (

@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { OrderCart } from "../OrderCart";
 
 export const CheckoutSideMenu = () => {
-    const { handlerCloseCheckout, cart } = useContext(MainContext);
+    const { handlerCloseCheckout, cart, totalCartPrice } = useContext(MainContext);
+    
     return (
         <aside className="w-[360px] h-[calc(100vh-85px)] flex flex-col fixed bg-white right-1 border border-black rounded-lg overflow-y-scroll">
             <div className="flex justify-between items-center p-6">
@@ -26,6 +27,12 @@ export const CheckoutSideMenu = () => {
                         />
                     ))
                 }
+            </div>
+            <div className="px-6 ">
+                <p className="flex justify-between items-center">
+                    <span className="font-light">Total:</span>
+                    <span className="font-medium text-xl"> ${totalCartPrice} </span>
+                </p>
             </div>
         </aside>
     )

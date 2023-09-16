@@ -1,29 +1,16 @@
 import { createContext, useState } from "react";
-
+import {useShoppingCart} from "../hooks/useShoppingCart";
 export const MainContext = createContext()
 
 export const MainContextProvider = ({ children }) => {
-    const [cartCounter, setCartCounter] = useState(0);
     const [isOpenDetail, setIsOpenDetail] = useState(false);
 
     const [productDetail, setProductDetail] = useState({});
 
-    const [cart, setCart] = useState([]);
     const [isOpenCheckout, setIsOpenCheckout] = useState(false);
 
-    const handlerAddNewElementCart = (el) => {
-        const duplicateEl = cart.find(element => el.id === element.id);
-        if (duplicateEl === undefined) {
-            setCart([...cart, el]);
-        } else {
-            setCart(cart.map(element => {
-                if (element.id == el.id) {
-                    element.count += 1;
-                }
-                return element;
-            }));
-        }
-    }
+    const {cart, cartCounter, handlerAddNewElementCart, deleteProductFromCart, totalCartPrice} = useShoppingCart()
+    
 
     const handlerOpenCheckout = () => {
         setIsOpenCheckout(true);
@@ -32,10 +19,6 @@ export const MainContextProvider = ({ children }) => {
     const handlerCloseCheckout = () => {
         setIsOpenCheckout(false);
     }
-
-    const deleteProductFromCart = (id) => {
-        setCart(cart.filter(element => element.id !== id));
-    };
 
     const handlerSetProductDetail = ({
         price,
@@ -52,14 +35,7 @@ export const MainContextProvider = ({ children }) => {
             description
         })
     };
-    const handlerCartCounter = () => {
-        let newCount = 0;
-        cart.forEach(el => {
-            newCount += el.count;
-        });
-        console.log(newCount, cart);
-        setCartCounter(newCount);
-    }
+
 
     const handlerIsOpenDetail = () => {
         setIsOpenDetail(!isOpenDetail);
@@ -69,7 +45,6 @@ export const MainContextProvider = ({ children }) => {
     return (
         <MainContext.Provider value={{
             cartCounter,
-            handlerCartCounter,
             handlerIsOpenDetail,
             isOpenDetail,
             handlerSetProductDetail,
@@ -79,7 +54,8 @@ export const MainContextProvider = ({ children }) => {
             isOpenCheckout,
             cart,
             handlerCloseCheckout,
-            deleteProductFromCart
+            deleteProductFromCart,
+            totalCartPrice
         }}>
             {
                 children

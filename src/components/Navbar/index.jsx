@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { MainContext } from "../../Context/mainContext"
 import { ShoppingCartIcon} from "@heroicons/react/24/outline"
@@ -42,7 +42,8 @@ const firstUl = [
 
 
 export const Navbar = () => {
-    const { cartCounter } = useContext(MainContext);
+    const { cartCounter } = useContext(MainContext)
+
     const secondUl = [
         {
             to: "/account",
