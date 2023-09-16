@@ -12,13 +12,31 @@ export const MainContextProvider = ({ children }) => {
     const [isOpenCheckout, setIsOpenCheckout] = useState(false);
 
     const handlerAddNewElementCart = (el) => {
-        setCart([...cart, el]);
+        const duplicateEl = cart.find(element => el.id === element.id);
+        if (duplicateEl === undefined) {
+            setCart([...cart, el]);
+        } else {
+            setCart(cart.map(element => {
+                if (element.id == el.id) {
+                    element.count += 1;
+                }
+                return element;
+            }));
+        }
     }
 
-    const handlerIsOpenCheckout = () => {
-        setIsOpenCheckout(!isOpenCheckout);
-        if(isOpenDetail) setIsOpenDetail(false);
+    const handlerOpenCheckout = () => {
+        setIsOpenCheckout(true);
+        if (isOpenDetail) setIsOpenDetail(false);
     }
+    const handlerCloseCheckout = () => {
+        setIsOpenCheckout(false);
+    }
+
+    const deleteProductFromCart = (id) => {
+        setCart(cart.filter(element => element.id !== id));
+    };
+
     const handlerSetProductDetail = ({
         price,
         title,
@@ -29,18 +47,23 @@ export const MainContextProvider = ({ children }) => {
         setProductDetail({
             price,
             title,
-            image, 
+            image,
             category,
             description
         })
     };
     const handlerCartCounter = () => {
-        setCartCounter(cartCounter + 1);
+        let newCount = 0;
+        cart.forEach(el => {
+            newCount += el.count;
+        });
+        console.log(newCount, cart);
+        setCartCounter(newCount);
     }
 
     const handlerIsOpenDetail = () => {
         setIsOpenDetail(!isOpenDetail);
-        if(isOpenCheckout) setIsOpenCheckout(false);
+        if (isOpenCheckout) setIsOpenCheckout(false);
     }
 
     return (
@@ -52,9 +75,11 @@ export const MainContextProvider = ({ children }) => {
             handlerSetProductDetail,
             productDetail,
             handlerAddNewElementCart,
-            handlerIsOpenCheckout,
+            handlerOpenCheckout,
             isOpenCheckout,
-            cart
+            cart,
+            handlerCloseCheckout,
+            deleteProductFromCart
         }}>
             {
                 children

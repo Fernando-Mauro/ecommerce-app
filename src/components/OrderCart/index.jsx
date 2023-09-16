@@ -1,12 +1,16 @@
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { useContext } from "react";
+import { MainContext } from "../../Context/mainContext";
 
 export const OrderCart = ({
     image,
     title,
-    price
+    price,
+    count,
+    id
 }) => {
-    const trimTitle = (title.split(" ")[0]) + " " + (title.split(" ")[1]);
-
+    const trimTitle = title.split(" ")[0];
+    const {deleteProductFromCart , handlerCartCounter} = useContext(MainContext);
     return (
 
         <div className="flex items-center justify-between">
@@ -14,14 +18,17 @@ export const OrderCart = ({
                 <figure className="w-20 h-20">
                     <img className="w-full h-full rounded-lg object-cover" src={image} alt={title} />
                 </figure>
-                <p className="font-light text-md"> {trimTitle} </p>
+                <p className="font-light text-md"> {trimTitle} {count}<strong>u </strong></p>
             </div>
             <div className="flex items-center gap-2">
                 <p className="text-lg font-bold">
                     {price}
                 </p>
                 <button>
-                    <XCircleIcon className="h-7 w-7 text-black cursor-pointer" onClick={() => handlerIsOpenCheckout()}></XCircleIcon>
+                    <XCircleIcon className="h-7 w-7 text-black cursor-pointer" onClick={() => {
+                        deleteProductFromCart(id);
+                        handlerCartCounter();
+                    }}></XCircleIcon>
                 </button>
 
             </div>

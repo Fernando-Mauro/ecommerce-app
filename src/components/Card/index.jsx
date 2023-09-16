@@ -4,7 +4,7 @@ import { MainContext } from '../../Context/mainContext';
 import { PlusIcon } from "@heroicons/react/24/outline"
 export const Card = ({ price, title, image, category, description, id }) => {
 
-    const { handlerCartCounter, handlerIsOpenDetail, handlerSetProductDetail, handlerAddNewElementCart , handlerIsOpenCheckout} = useContext(MainContext);
+    const { handlerIsOpenDetail, handlerSetProductDetail, handlerAddNewElementCart , handlerOpenCheckout, handlerCartCounter}  = useContext(MainContext);
 
     const onClickCard = () => {
         handlerSetProductDetail({
@@ -19,16 +19,19 @@ export const Card = ({ price, title, image, category, description, id }) => {
 
     const onAddElementToCart = (event) => {
         event.stopPropagation();
-        handlerCartCounter();
+        
         handlerAddNewElementCart({
             price,
             title,
             image,
             category,
             description,
-            id
+            id,
+            count: 1
         });
-        handlerIsOpenCheckout();
+
+        handlerOpenCheckout();
+        handlerCartCounter();
     }
 
     return (

@@ -10,7 +10,7 @@ export const Home = () => {
     const { isOpenDetail } = useContext(MainContext);
     return (
         <Layout>
-            <div className="grid gap-3 grid-cols-4 w-full max-w-screen-lg">
+            <div className="grid gap-4 grid-cols-auto justify-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {
                     products?.map(product => (
                         <Card category={product.category}

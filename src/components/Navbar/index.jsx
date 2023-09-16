@@ -42,7 +42,7 @@ const firstUl = [
 
 
 export const Navbar = () => {
-    const {cartCounter} = useContext(MainContext);
+    const { cartCounter } = useContext(MainContext);
     const secondUl = [
         {
             to: "/account",
