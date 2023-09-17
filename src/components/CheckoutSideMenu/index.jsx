@@ -2,6 +2,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 import { MainContext } from "../../Context/mainContext";
 import { useContext } from "react";
 import { OrderCart } from "../OrderCart";
+import { Link } from "react-router-dom";
 
 export const CheckoutSideMenu = () => {
     const { handlerCloseCheckout, cart, totalCartPrice, handlerCheckOut } = useContext(MainContext);
@@ -33,7 +34,9 @@ export const CheckoutSideMenu = () => {
                     <span className="font-light">Total:</span>
                     <span className="font-medium text-xl"> ${totalCartPrice} </span>
                 </p>
-                <button className="w-full py-3 mt-4 text-white rounded-full bg-green-500" onClick={() => handlerCheckOut()}> Checkout </button>
+                <Link to="/my-orders/last">
+                    <button className="w-full py-3 mt-4 text-white rounded-full bg-green-500" onClick={() => handlerCheckOut()}> Checkout </button>
+                </Link>
             </div>
         </aside>
     )

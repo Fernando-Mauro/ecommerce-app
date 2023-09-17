@@ -21,6 +21,7 @@ export const MainContextProvider = ({ children }) => {
         };
         setOrder([...order, orderToAdd]);
         clearCart();
+        setIsOpenCheckout(false);
     };
 
     const handlerOpenCheckout = () => {
@@ -67,7 +68,8 @@ export const MainContextProvider = ({ children }) => {
             handlerCloseCheckout,
             deleteProductFromCart,
             totalCartPrice,
-            handlerCheckOut
+            handlerCheckOut,
+            order
         }}>
             {
                 children

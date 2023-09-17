@@ -7,10 +7,11 @@ export const OrderCart = ({
     title,
     price,
     count,
-    id
+    id,
+    flag = false
 }) => {
     const trimTitle = title.split(" ")[0];
-    const {deleteProductFromCart} = useContext(MainContext);
+    const { deleteProductFromCart } = useContext(MainContext);
     return (
 
         <div className="flex items-center justify-between">
@@ -24,11 +25,14 @@ export const OrderCart = ({
                 <p className="text-lg font-bold">
                     ${price}
                 </p>
-                <button>
-                    <XCircleIcon className="h-7 w-7 text-black cursor-pointer" onClick={() => {
-                        deleteProductFromCart(id);
-                    }}></XCircleIcon>
-                </button>
+                {
+                    !flag &&
+                    <button>
+                        <XCircleIcon className="h-7 w-7 text-black cursor-pointer" onClick={() => {
+                            deleteProductFromCart(id);
+                        }}></XCircleIcon>
+                    </button>
+                }
 
             </div>
         </div>
