@@ -13,5 +13,7 @@ export const useFetch = ({ url }) => {
         fetchData();
     }, [url])
 
-    return data;
+    return {
+        data
+    };
 }

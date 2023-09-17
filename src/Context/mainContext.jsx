@@ -1,25 +1,29 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {useShoppingCart} from "../hooks/useShoppingCart";
+import { useOrders } from "../hooks/useOrders";
+import { useFetch } from "../hooks/useFetch";
 export const MainContext = createContext()
 
 export const MainContextProvider = ({ children }) => {
+    const [url, setUrl] = useState("https://fakestoreapi.com/products?limit=30");
+    
+    const { data : products } = useFetch({ url });
+    
     const [isOpenDetail, setIsOpenDetail] = useState(false);
 
     const [productDetail, setProductDetail] = useState({});
 
-    const [isOpenCheckout, setIsOpenCheckout] = useState(false);
-
     const {cart, cartCounter, handlerAddNewElementCart, deleteProductFromCart, totalCartPrice, clearCart} = useShoppingCart()
-    const [order, setOrder] = useState([]); 
+    const {setIsOpenCheckout, isOpenCheckout, handlerSetLastOrder, lastOrder, orders } = useOrders();
 
     const handlerCheckOut = () => {
         const orderToAdd = {
-            date: new Date(),
+            date: new Date().toLocaleDateString(),
             products: cart,
-            totalProducts: cartCounter, 
+            totalProducts: cartCounter,
             totalPrice: totalCartPrice,
         };
-        setOrder([...order, orderToAdd]);
+        handlerSetLastOrder(orderToAdd);
         clearCart();
         setIsOpenCheckout(false);
     };
@@ -54,22 +58,47 @@ export const MainContextProvider = ({ children }) => {
         if (isOpenCheckout) setIsOpenCheckout(false);
     }
 
+    const [searchValue, setSearchValue] = useState("");
+
+    const onInputChange = (event) => {
+        setSearchValue(event.target.value);
+    }
+
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    useEffect(() => {
+        const toLowerCase = searchValue.toLowerCase();
+
+        setFilteredProducts(products?.filter(product => {
+            const toLowerProduct = product.title.toLowerCase();
+
+            return toLowerProduct.includes(toLowerCase)
+        }));
+
+    }, [searchValue, products]);
+
     return (
         <MainContext.Provider value={{
-            cartCounter,
-            handlerIsOpenDetail,
-            isOpenDetail,
-            handlerSetProductDetail,
-            productDetail,
-            handlerAddNewElementCart,
-            handlerOpenCheckout,
-            isOpenCheckout,
             cart,
-            handlerCloseCheckout,
+            cartCounter,
             deleteProductFromCart,
-            totalCartPrice,
+            handlerAddNewElementCart,
             handlerCheckOut,
-            order
+            handlerCloseCheckout,
+            handlerIsOpenDetail,
+            handlerOpenCheckout,
+            handlerSetProductDetail,
+            isOpenCheckout,
+            isOpenDetail,
+            lastOrder,
+            orders,
+            productDetail,
+            products,
+            totalCartPrice,
+            onInputChange,
+            searchValue,
+            filteredProducts,
+            setUrl
         }}>
             {
                 children

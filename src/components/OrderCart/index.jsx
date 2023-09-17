@@ -8,7 +8,8 @@ export const OrderCart = ({
     price,
     count,
     id,
-    flag = false
+    flag = false, 
+    date
 }) => {
     const trimTitle = title.split(" ")[0];
     const { deleteProductFromCart } = useContext(MainContext);
@@ -22,8 +23,9 @@ export const OrderCart = ({
                 <p className="font-light text-md"> {trimTitle} {count}<strong>u </strong></p>
             </div>
             <div className="flex items-center gap-2">
-                <p className="text-lg font-bold">
-                    ${price}
+                <p className="text-lg font-bold flex flex-col gap-2">
+                    <span>${price}</span>
+                    <span className="font-light text-sm">{date}</span>
                 </p>
                 {
                     !flag &&

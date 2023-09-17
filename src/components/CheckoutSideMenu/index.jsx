@@ -34,7 +34,7 @@ export const CheckoutSideMenu = () => {
                     <span className="font-light">Total:</span>
                     <span className="font-medium text-xl"> ${totalCartPrice} </span>
                 </p>
-                <Link to="/my-orders/last">
+                <Link to="/my-order/last">
                     <button className="w-full py-3 mt-4 text-white rounded-full bg-green-500" onClick={() => handlerCheckOut()}> Checkout </button>
                 </Link>
             </div>

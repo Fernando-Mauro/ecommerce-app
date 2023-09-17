@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { MainContext } from "../../Context/mainContext"
 import { ShoppingCartIcon} from "@heroicons/react/24/outline"
@@ -14,8 +14,13 @@ const firstUl = [
         className: ""
     },
     {
-        to: "/clothes",
-        text: "Clothes",
+        to: "/jewelery",
+        text: "Jewelery",
+        className: ""
+    },
+    {
+        to: "/men's clothing",
+        text: "Men's",
         className: ""
     },
     {
@@ -24,18 +29,8 @@ const firstUl = [
         className: ""
     },
     {
-        to: "/furnitures",
-        text: "Furnitures",
-        className: ""
-    },
-    {
-        to: "/toys",
-        text: "Toys",
-        className: ""
-    },
-    {
-        to: "/others",
-        text: "Others",
+        to: "/women's clothing",
+        text: "Women's",
         className: ""
     },
 ]
