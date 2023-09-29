@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { MainContext } from "../../Context/mainContext"
-import { ShoppingCartIcon} from "@heroicons/react/24/outline"
+import { ShoppingCartIcon } from "@heroicons/react/24/outline"
 const firstUl = [
     {
         to: "/",
@@ -37,8 +37,10 @@ const firstUl = [
 
 
 export const Navbar = () => {
-    const { cartCounter } = useContext(MainContext)
-
+    const { cartCounter, setSignOut , signOut} = useContext(MainContext)
+    const handleSignOut = () => {
+        setSignOut(false);
+    };
     const secondUl = [
         {
             to: "/account",
@@ -57,8 +59,9 @@ export const Navbar = () => {
         },
         {
             to: "/sign-in",
-            text: "Sign In",
-            className: ""
+            text: signOut ? "Sign Out" : "Sign In",
+            className: "",
+            onClick: signOut ? handleSignOut : undefined
         },
         {
             to: "/my-order",
@@ -67,7 +70,7 @@ export const Navbar = () => {
         },
         {
             to: "🛒",
-            text: <ShoppingCartIcon className="h-6 w-6"/>,
+            text: <ShoppingCartIcon className="h-6 w-6" />,
             className: ""
         },
         {
@@ -84,7 +87,7 @@ export const Navbar = () => {
                         <li key={link.text} >
                             <NavLink to={link.to}
                                 className={({ isActive }) =>
-                                    (isActive && index !== 0? `${link.className} underline underline-offset-4` : `${link.className}`)
+                                    (isActive && index !== 0 ? `${link.className} underline underline-offset-4` : `${link.className}`)
                                 }>
                                 {link.text}
                             </NavLink>
@@ -94,15 +97,37 @@ export const Navbar = () => {
             </ul>
             <ul className="flex items-center gap-3">
                 {
-                    secondUl.map(link => (
+                    secondUl.map((link) => (
                         <li key={link.text}>
-                            <NavLink to={link.to}
-                                className={({ isActive }) =>
-                                    (isActive ? `${link.className} underline underline-offset-4` : `${link.className}`)
-                                }
-                            >
-                                {link.text === <ShoppingCartIcon/> ? <ShoppingCartIcon/> : link.text}
-                            </NavLink>
+                            {/* Utiliza un onClick si está presente en la definición del enlace */}
+                            {link.onClick ? (
+                                <button
+                                    onClick={link.onClick}
+                                    className={link.className}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    {link.text === <ShoppingCartIcon /> ? (
+                                        <ShoppingCartIcon />
+                                    ) : (
+                                        link.text
+                                    )}
+                                </button>
+                            ) : (
+                                <NavLink
+                                    to={link.to}
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? `${link.className} underline underline-offset-4`
+                                            : `${link.className}`
+                                    }
+                                >
+                                    {link.text === <ShoppingCartIcon /> ? (
+                                        <ShoppingCartIcon />
+                                    ) : (
+                                        link.text
+                                    )}
+                                </NavLink>
+                            )}
                         </li>
                     ))
                 }

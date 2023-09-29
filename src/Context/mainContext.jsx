@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {useShoppingCart} from "../hooks/useShoppingCart";
 import { useOrders } from "../hooks/useOrders";
 import { useFetch } from "../hooks/useFetch";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 export const MainContext = createContext()
 
 export const MainContextProvider = ({ children }) => {
@@ -15,6 +16,11 @@ export const MainContextProvider = ({ children }) => {
 
     const {cart, cartCounter, handlerAddNewElementCart, deleteProductFromCart, totalCartPrice, clearCart} = useShoppingCart()
     const {setIsOpenCheckout, isOpenCheckout, handlerSetLastOrder, lastOrder, orders } = useOrders();
+
+    const { item : account , setNewItem: setAccount} = useLocalStorage({key: "account", defaultState: {}});
+    const { item : signOut , setNewItem: setSignOut} = useLocalStorage({key: "sign-out", defaultState: false});
+
+    console.log(account, signOut);
 
     const handlerCheckOut = () => {
         const orderToAdd = {
@@ -98,7 +104,11 @@ export const MainContextProvider = ({ children }) => {
             onInputChange,
             searchValue,
             filteredProducts,
-            setUrl
+            setUrl,
+            account,
+            setAccount,
+            signOut,
+            setSignOut
         }}>
             {
                 children
