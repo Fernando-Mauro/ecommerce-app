@@ -18,9 +18,9 @@ export const MainContextProvider = ({ children }) => {
     const {setIsOpenCheckout, isOpenCheckout, handlerSetLastOrder, lastOrder, orders } = useOrders();
 
     const { item : account , setNewItem: setAccount} = useLocalStorage({key: "account", defaultState: {}});
-    const { item : signOut , setNewItem: setSignOut} = useLocalStorage({key: "sign-out", defaultState: false});
-
-    console.log(account, signOut);
+    const { item : signOut , setNewItem: setSignOut} = useLocalStorage({key: "sign-out", defaultState: true});
+    const [loginView, setLoginView] = useState(true); 
+    const [hasAnAccount, setHasAnAccount] = useState(false);
 
     const handlerCheckOut = () => {
         const orderToAdd = {
@@ -108,7 +108,11 @@ export const MainContextProvider = ({ children }) => {
             account,
             setAccount,
             signOut,
-            setSignOut
+            setSignOut,
+            loginView,
+            setLoginView,
+            hasAnAccount,
+            setHasAnAccount
         }}>
             {
                 children

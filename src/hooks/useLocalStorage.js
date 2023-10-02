@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const getItem = ({ key  }) => {
-    return JSON.parse(localStorage.getItem(key)) || undefined;
+    return JSON.parse(localStorage.getItem(key)) || false;
 }
 
 export const useLocalStorage = ({ key, defaultState }) => {
@@ -16,9 +16,9 @@ export const useLocalStorage = ({ key, defaultState }) => {
     useEffect(() => {
         try {
             if(!getItem({key})){
-                setItem(defaultState);
+                setNewItem(defaultState);
             }else{
-                setNewItem(getItem({key}));
+                setItem(defaultState);
             }
         } catch {
             setErr(true);

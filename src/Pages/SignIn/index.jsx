@@ -5,16 +5,16 @@ import { ProfileView } from "./ProfileView";
 import { LoginView } from "./LoginView";
 
 export const SignIn = () => {
-    const { signIn } = useContext(MainContext);
+    const { loginView } = useContext(MainContext);
     
     return (
         <>
             <Layout>Sign In</Layout>
             <div className="flex justify-center items-center">
                 {
-                    signIn ?
-                        <ProfileView /> :
-                        <LoginView />
+                    loginView ?
+                    <ProfileView />:
+                    <LoginView />
                 }
             </div>
         </>

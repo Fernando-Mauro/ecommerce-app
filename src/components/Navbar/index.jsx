@@ -37,14 +37,14 @@ const firstUl = [
 
 
 export const Navbar = () => {
-    const { cartCounter, setSignOut , signOut} = useContext(MainContext)
+    const { cartCounter, setSignOut , signOut, account } = useContext(MainContext)
     const handleSignOut = () => {
-        setSignOut(false);
+        setSignOut(true);
     };
     const secondUl = [
         {
             to: "/account",
-            text: "ferma.dev@gmail.com",
+            text: account.email,
             className: ""
         },
         {
@@ -59,9 +59,9 @@ export const Navbar = () => {
         },
         {
             to: "/sign-in",
-            text: signOut ? "Sign Out" : "Sign In",
+            text: signOut ? "Sign In": "Sign Out",
             className: "",
-            onClick: signOut ? handleSignOut : undefined
+            onClick: signOut ?  undefined: handleSignOut
         },
         {
             to: "/my-order",

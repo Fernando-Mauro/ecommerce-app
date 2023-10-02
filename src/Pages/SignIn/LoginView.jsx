@@ -1,23 +1,69 @@
+import { useContext, useRef } from "react"
 import { Link } from "react-router-dom"
+import { MainContext } from "../../Context/mainContext"
 
-export const LoginView = ({email, password, hasAccount}) => {
+export const LoginView = () => {
+    const {setAccount, setLoginView, setHasAnAccount} = useContext(MainContext);
+
+    const formRef = useRef(null);
+    
+    const createAnAccount = () => {
+        const formData = new FormData(formRef.current);
+
+        const data = {
+            name : formData.get('name'),
+            email : formData.get('email'),
+            password :formData.get('password')
+        }
+        setAccount(data);
+        setLoginView(true);
+        setHasAnAccount(true);
+    }
+
     return (
-        <div className="flex flex-col w-80">
-            <p>
-                <span className="font-light text-sm">Email: </span>
-                <span> {email} </span>
-            </p>
-            <p>
-                <span className="font-light text-sm"> Password</span>
-                <span> {password} </span>
-            </p>
+        <form className="flex flex-col gap-4" ref={formRef}>
+            <div className="flex flex-col gap-1">
+                <label htmlFor="name" className="font-light">
+                    Your name:
+                </label>
+                <input type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Fernando"
+                    className="rounded-lg border border-blac placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4"
+                />
+            </div>
+            <div className="flex flex-col gap-1">
+                <label htmlFor="email" className="font-light">
+                    Your email:
+                </label>
+                <input type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Fernando@mauro.com"
+                    className="rounded-lg border border-blac placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4"
+                />
+            </div>
+            <div className="flex flex-col gap-1">
+                <label htmlFor="password" className="font-light">
+                    Your Password:
+                </label>
+                <input type="password"
+                    name="password"
+                    id="password"
+                    placeholder="*****"
+                    className="rounded-lg border border-blac placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4"
+                />
+            </div>
             <Link to="/">
-                <button className="bg-black disable:bg-black/40 text-white w-full rounded-lg py-3 mt-4 mb-2"
-                    disabled={hasAccount}
+                <button
+                    type="submit"
+                    className="bg-black text-white w-full rounded-lg py-3"
+                    onClick={createAnAccount}
                 >
-                    Log In
+                    Create
                 </button>
             </Link>
-        </div>
+        </form>
     )
 }
